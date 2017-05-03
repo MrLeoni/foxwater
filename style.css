@@ -24,14 +24,15 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 	3.1 Posts and pages
 4.0 Media
 	4.1 Captions
-	4.2 Galleries
+5.0 Custom CSS
+  5.1 Setup
 --------------------------------------------------------------*/
 /*--------------------------------------------------------------
 1.0 Navigation
 --------------------------------------------------------------*/
-/*--------------------------------------------------------------
+/*----------------------------------
 1.1 Menus
---------------------------------------------------------------*/
+----------------------------------*/
 .main-navigation {
 	clear: both;
 	display: block;
@@ -162,9 +163,9 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 /*--------------------------------------------------------------
 3.0 Content
 --------------------------------------------------------------*/
-/*--------------------------------------------------------------
+/*----------------------------------
 3.1 Posts and pages
---------------------------------------------------------------*/
+----------------------------------*/
 .sticky {
 	display: block;
 }
@@ -196,9 +197,9 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 /*--------------------------------------------------------------
 4.0 Media
 --------------------------------------------------------------*/
-/*--------------------------------------------------------------
+/*----------------------------------
 4.1 Captions
---------------------------------------------------------------*/
+----------------------------------*/
 .wp-caption {
 	margin-bottom: 1.5em;
 	max-width: 100%;
@@ -219,55 +220,50 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 }
 
 /*--------------------------------------------------------------
-4.2 Galleries
---------------------------------------------------------------*/
-.gallery {
-	margin-bottom: 1.5em;
-}
-
-.gallery-item {
-	display: inline-block;
-	text-align: center;
-	vertical-align: top;
-	width: 100%;
-}
-
-.gallery-columns-2 .gallery-item {
-	max-width: 50%;
-}
-
-.gallery-columns-3 .gallery-item {
-	max-width: 33.33%;
-}
-
-.gallery-columns-4 .gallery-item {
-	max-width: 25%;
-}
-
-.gallery-columns-5 .gallery-item {
-	max-width: 20%;
-}
-
-.gallery-columns-6 .gallery-item {
-	max-width: 16.66%;
-}
-
-.gallery-columns-7 .gallery-item {
-	max-width: 14.28%;
-}
-
-.gallery-columns-8 .gallery-item {
-	max-width: 12.5%;
-}
-
-.gallery-columns-9 .gallery-item {
-	max-width: 11.11%;
-}
-
-.gallery-caption {
-	display: block;
-}
-
-/*--------------------------------------------------------------
 5.0 Custom CSS
 --------------------------------------------------------------*/
+/*----------------------------------
+5.1 Setup
+----------------------------------*/
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #ccc;
+  color: #89878c;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+
+a:link,
+a:visited {
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+  text-decoration: none;
+}
+
+ul,
+ul li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+.row {
+  padding: 0;
+}
