@@ -2,9 +2,7 @@
 /**
  * The header for our theme
  *
- * This is the template that displays all of the <head> section and everything up until <div id="content">
- *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ * This is the template that displays all of the <head> section
  *
  * @package Foxwater
  */
@@ -23,30 +21,57 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'foxwater' ); ?></a>
-
-	<header id="masthead" class="site-header" role="banner">
-		<div class="site-branding">
-			<?php
-			if ( is_front_page() && is_home() ) : ?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-			<?php
-			endif;
-
-			$description = get_bloginfo( 'description', 'display' );
-			if ( $description || is_customize_preview() ) : ?>
-				<p class="site-description"><?php echo $description; /* WPCS: xss ok. */ ?></p>
-			<?php
-			endif; ?>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation" role="navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'foxwater' ); ?></button>
-			<?php wp_nav_menu( array( 'theme_location' => 'menu-1', 'menu_id' => 'primary-menu' ) ); ?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
-
-	<div id="content" class="site-content">
+	<header id="site-header" class="header">
+		<div class="menu-wrapper" id="main-menu-wrapper">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-lg-8">
+						<?php
+							$menu_args = array(
+								'theme_location' => 'header',
+								'container' => 'nav',
+								'container_class' => 'header-nav',
+								'menu_class' => 'header-nav-links clearfix'
+							);
+							wp_nav_menu( $menu_args );
+						?>
+					</div>
+					
+					<div class="col-lg-2">
+						<nav class="social-nav">
+							<ul class="social-nav-links clearfix">
+								<li>
+									<a href="https://www.facebook.com/foxwaterservicos" title="Facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+								</li>
+								<li>
+									<a href="#" title="Twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+								</li>
+								<li>
+									<a href="#" title="Instagram" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+								</li>
+								<li>
+									<a href="https://www.linkedin.com/company-beta/1391456/" title="LinkedIn" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					
+					<div class="col-lg-2">
+						<div class="search-home">
+							<?php get_search_form(); ?>
+						</div>
+					</div>
+					
+				</div><!-- /.row -->
+			</div>
+		</div>
+		<div class="mobile-btn-box">
+			<button id="js-mobile-btn" class="nav-btn">
+				MENU
+			</button>
+		</div>
+		<div class="logo-wrapper">
+			<img src="<?php bloginfo('stylesheet_directory'); ?>/assets/img/foxwater-logo-header.png" alt="Foxwater">
+		</div>
+	</header>

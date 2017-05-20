@@ -28,7 +28,13 @@ Tema construído para WordPress. Esse é um tema para um site institucional / bl
 
 ## Versões:
 
-### 1.0.0 - 24/04/17
+### 1.0.0 - 16/05/17
+* Tema lançado!
+
+<br>
+<br>
+
+### 0.0.0 - 24/04/17
 * Primeiro Commit!
 
 <br>

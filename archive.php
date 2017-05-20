@@ -2,50 +2,66 @@
 /**
  * The template for displaying archive pages
  *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
  * @package Foxwater
  */
 
 get_header(); ?>
-
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
-
-		<?php
-		if ( have_posts() ) : ?>
-
-			<header class="page-header">
-				<?php
-					the_archive_title( '<h1 class="page-title">', '</h1>' );
-					the_archive_description( '<div class="archive-description">', '</div>' );
-				?>
-			</header><!-- .page-header -->
-
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
-
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_format() );
-
-			endwhile;
-
-			the_posts_navigation();
-
-		else :
-
-			get_template_part( 'template-parts/content', 'none' );
-
-		endif; ?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
+	
+	<article id="primary" class="content-area archive">
+		
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-md-8">
+					<main id="main" class="site-main" role="main">
+						
+						<?php	if ( have_posts() ) : ?>
+							
+							<header class="page-header">
+								<?php
+									the_archive_title( '<h1 class="page-title archive-title">', '</h1>' );
+									the_archive_description( '<div class="archive-description">', '</div>' );
+								?>
+							</header><!-- .page-header -->
+				
+							<?php /* Start the Loop */
+							while ( have_posts() ) : the_post(); ?>
+							
+								<section id="post-<?php echo get_the_ID(); ?>" class="post">
+								  <?php 
+								  the_post_thumbnail('full'); 
+								  the_title('<h2>', '</h2>');
+								  echo '<p class="post-meta">' . get_the_date() . ' | Por ' . get_the_author() . '</p>'; ?>
+								  <div class="post-excerpt clearfix">
+								    <?php the_excerpt(); ?>
+								  </div>
+							    <footer class="post-footer clearfix">
+							      <?php echo social_sharing_buttons(); ?>
+							      <a class="post-read-more" href="<?php the_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="_self">Ler Mais</a>
+							    </footer>
+								</section>
+				
+							<?php endwhile;
+				
+							the_posts_navigation();
+				
+						else :
+				
+							get_template_part( 'template-parts/content', 'none' );
+				
+						endif; ?>
+						
+					</main>
+				</div>
+				
+				<div class="col-md-4">
+					<?php get_sidebar('home'); ?>
+				</div>
+				
+			</div>
+		</div>
+		
+	</article><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();

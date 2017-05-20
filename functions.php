@@ -2,8 +2,6 @@
 /**
  * Foxwater functions and definitions
  *
- * @link https://developer.wordpress.org/themes/basics/theme-functions/
- *
  * @package Foxwater
  */
 
@@ -44,7 +42,8 @@ function foxwater_setup() {
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'header' => esc_html__( 'Primary', 'foxwater' ),
+		'header' => esc_html__( 'Topo', 'foxwater' ),
+		'footer' => esc_html__( 'Rodapé', 'foxwater' ),
 	) );
 
 	/*
@@ -176,3 +175,98 @@ require get_template_directory() . '/inc/posts.php';
  * Creating custom Widgets
  */
 require get_template_directory() . '/inc/widgets.php';
+
+/**
+ * Function to register post views
+ */
+ 
+function wpb_set_post_views( $postID ) {
+
+	$count_key = 'wpb_post_views_count';
+	$count = get_post_meta($postID, $count_key, true);
+	
+	if( $count == '' ) {
+		
+		$count = 0;
+		delete_post_meta($postID, $count_key);
+		add_post_meta($postID, $count_key, '0');
+		
+	} else {
+		
+		$count++;
+		update_post_meta($postID, $count_key, $count);
+		
+	}
+	
+}
+
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+/**
+ * Send emails to data base
+ */
+
+function base_creator() {
+	
+	global $wpdb;
+	$email = htmlspecialchars( $_POST['email'] );
+	
+	// Check to see if the email is not in the database already
+	$results = $wpdb->get_results("SELECT * FROM `base_email` WHERE email='$email'", OBJECT);
+	
+	// insert the email into database
+	if ( count( $results ) === 0 ) {
+		$save = $wpdb->insert( 'base_email', array('email' => $email) );
+	}
+	
+	die();
+	
+}
+
+add_action('wp_ajax_base', 'base_creator');
+add_action('wp_ajax_nopriv_base', 'base_creator');
+
+/**
+ *  Remove 'Categoria:' from archive pages
+ */
+add_filter( 'get_the_archive_title', function ($title) {
+
+	if ( is_category() ) {
+		$title = single_cat_title( '', false );
+	} elseif ( is_tag() ) {
+		$title = single_tag_title( '', false );
+	} elseif ( is_author() ) {
+		$title = '<span class="vcard">' . get_the_author() . '</span>' ;
+	}
+
+return $title;
+});
+
+/**
+ * Social Share
+ */
+
+function social_sharing_buttons() {
+	global $post;
+	
+		// Get current page URL 
+		$url = urlencode(get_permalink());
+ 
+		// Get current page title
+		$title = str_replace( ' ', '%20', get_the_title());
+		
+		// Get Post Thumbnail for pinterest
+		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+ 
+		// Construct sharing URL without using any script
+		$twitterURL = 'https://twitter.com/intent/tweet?text='.$title.'&amp;url='.$url.'&amp;via=Crunchify';
+		$facebookURL = 'https://www.facebook.com/sharer/sharer.php?u='.$url;
+		$linkedInURL = 'https://www.linkedin.com/shareArticle?mini=true&url='.$url.'&amp;title='.$title;
+ 
+		// Add sharing button at the end of page/page content
+		$content = '<a class="share-button facebook" href="'.$facebookURL.'" title="Compartilhar no Facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a><a class="share-button twitter" href="'. $twitterURL .'" title="Compartilhar no Twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a><a class="share-button linkedin" href="'.$linkedInURL.'" title="Compartilhar no LinkedIn" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>';
+		
+		return $content;
+};
+
+
